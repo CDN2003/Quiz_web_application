@@ -80,9 +80,9 @@ class QuestionManager
     }
     public function checkAnsSingle($answer, $index) {
         if($answer == $this->answers[$index]) {
-            echo "(<span style=\"color: blue\">correct</span>)";
+            return "correct";
         } else {
-            echo "(<span style=\"color: red\">incorrect</span>)";
+            return "incorrect";
         }
     }
 }

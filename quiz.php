@@ -24,16 +24,9 @@ try {
         $number = 1;
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Loop through all the questions and save answers in session
-        for($i = 1; $i <= 10; $i++) {
-            if (isset($_POST['answer'.$i])) {
-                $_SESSION['answers'][$i] = $_POST['answer'.$i];
-            }
-        }
-        // Redirect to result.php after submitting answers
-        header("Location: result.php");
-        exit;
+    if (isset($_POST['answer'])) {
+        $_SESSION['answers'][$number] = $_POST['answer'];
+        $number++;
     }
 
     // Has user answered all items
@@ -69,8 +62,6 @@ try {
 <p style="color: gray">
     There is a certain relationship between two given words on one side of : : and one word is given on another side of : : while another word is to be found from the given alternatives, having the same relation with this word as the words of the given pair bear. Choose the correct alternative.
 </p>
-    <?php for ($number = 1; $number <= 10; $number++): ?>
-        <?php $question = $question = $manager->retrieveQuestion($number); ?>
             <h1>Question <?php echo $question->getNumber(); ?></h1>
             <h2 style="color: blue"><?php echo $question->getQuestion(); ?></h2>
             <h4 style="color: blue">Choices</h4>
@@ -80,12 +71,11 @@ try {
                 <?php foreach ($question->getChoices() as $choice): ?>
                     <input
                         type="radio"
-                        name="answer<?php echo $question->getNumber(); ?>"
+                        name="answer"
                         value="<?php echo $choice->letter; ?>" />
                         <?php echo $choice->letter; ?>)
                     <?php echo $choice->label; ?><br />
                 <?php endforeach; ?>
-            <?php endfor; ?>
                 
                 <input type="submit" value="Submit">
         </form>

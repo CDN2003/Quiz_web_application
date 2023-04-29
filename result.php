@@ -4,8 +4,6 @@ require "vendor/autoload.php";
 
 session_start();
 
-// 4.
-
 use App\QuestionManager;
 
 $score = null;
@@ -28,6 +26,17 @@ try {
     echo '<p>' . $e->getMessage() . '</p>';
     exit;
 }
+$_SESSION['score'] = $score;
+
+function identify_if_correct($ans, $ind) {
+    global $manager;
+    $answer = $manager->checkAnsSingle($ans, $ind);
+    if ($answer == "correct") {
+        echo "(<span style=\"color: blue\">correct</span>)";
+    } else {
+        echo "(<span style=\"color: red\">incorrect</span>)";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +51,10 @@ try {
 <h1>Thank You</h1>
 
 <h3>
-    Congratulations <?php echo $_SESSION['user_fullname']; ?> (<?php echo $_SESSION['user_email']; ?>)! <br />
+    Congratulations<br />
+    Complete Name: <?php echo $_SESSION['complete_name']; ?><br /> 
+    Email: <?php echo $_SESSION['email']; ?> <br />
+    Birthdate: <?php echo $_SESSION['birthdate'] ?> <br \>
     Score: <span style="color: blue"><?php echo $score; ?></span> out of <?php echo $manager->getQuestionSize() ;?> items <br />
     Your Answers:
 </h3>
@@ -50,8 +62,9 @@ try {
 <h3>
     <ol>
     <?php for($number=1;$number<=10;$number++): ?>
-        <li><?php echo $_SESSION['answers'][$number]; ?> <?php $manager->checkAnsSingle($_SESSION['answers'][$number], $number); ?></li>
+        <li><?php echo $_SESSION['answers'][$number]; ?> <?php $manager->checkAnsSingle($_SESSION['answers'][$number], $number); ?></li>    
     <?php endfor; ?>
+    <a href="download.php">Click here to download the results.</a>
     </ol>
 </body>
 </html>

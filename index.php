@@ -3,7 +3,7 @@
 require "vendor/autoload.php";
 
 // 1. What does this function session_start() do to the application?
-// _____________________________________________________________________
+//  the session_start() function basically starts a new session or it can also resume an existing session
 
 session_start();
 session_destroy();
@@ -23,12 +23,15 @@ session_destroy();
 
 	<form method="POST" action="register.php">
 		Enter your full name:<br />
-		<input type="text" name="fullname" placeholder="Full Name" required /><br />
-		Email Address:<br />
-		<input size="30" type="email" name="email" /><br />
-		Birthdate:<br /> 
-		<input size="30" type="date" name="birthdate" /><br />
-		<input type="submit">
+		<input type="text" name="complete_name" placeholder="Full Name" required />
+		<br />
+		Email:<br />
+		<input type="email" name="email" required/>
+		<br />
+		Birthdate:<br />
+		<input type="date" name="birthdate" required/>
+		<br />
+		<input type="submit" value="Register"/>
 	</form>
 
 </body>
